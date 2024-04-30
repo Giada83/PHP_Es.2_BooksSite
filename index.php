@@ -1,27 +1,40 @@
 <?php
 require_once __DIR__ . '/includes/db_connect.php';
 include_once __DIR__ . '/includes/html_start.php';
+
+$search = $_GET['search'] ?? '';
+
+$stmt = $conn->prepare('SELECT * FROM books WHERE title LIKE ? ORDER BY title');
+$stmt->execute([
+    "%$search%"
+]);
+
+
 ?>
 
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
-        <a class="navbar-brand" href="#">The Books World</a>
+        <a class="navbar-brand" href="<?= $URL ?>">The Books World</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
+                        <div class="circle"><i class="bi bi-house-fill"></i></div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
+                        <div class="circle"><i class="bi bi-person-fill"></i></div>
+                    </a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Find a book" aria-label="Search">
-                <button class="btn btn-search" type="submit" name="search">Search</button>
+            <form class="d-flex" role="search" action="" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Find a book title" aria-label="Search" name="search">
+                <button class=" btn btn-search" type="submit">Search</button>
             </form>
         </div>
     </div>
@@ -32,9 +45,9 @@ include_once __DIR__ . '/includes/html_start.php';
     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 g-2 mt-3">
 
         <!-- card book -->
-        <?php $stmt = $conn->query('SELECT * FROM books ORDER BY title');
+        <?php
+        // $stmt = $conn->query('SELECT * FROM books ORDER BY title');
         foreach ($stmt as $row) { ?>
-
             <div class="col">
                 <div class="card h-100">
                     <img src="<?= $row['image'] ?>" class="card-img-top" alt="book cover">

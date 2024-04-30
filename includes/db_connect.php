@@ -1,4 +1,5 @@
 <?php
+$URL = "/BackEndDocs/PHP_Es.2_Books_database";
 
 $host = 'localhost';
 $db = 'test';
