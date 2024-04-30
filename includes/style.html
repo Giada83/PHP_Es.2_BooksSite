@@ -13,11 +13,28 @@
     color: #f26b83;
     font-weight: 600;
     font-size: 1.5rem;
+    position: relative;
   }
 
   .navbar-brand:hover {
     color: #f2c879;
     font-weight: 600;
+  }
+
+  .navbar-brand::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 30px;
+    background-color: #8282829c;
+    margin-left: 0.8rem;
+    top: 20%;
+  }
+
+  @media (max-width: 991.98px) {
+    .navbar-brand::after {
+      display: none;
+    }
   }
 
   .btn-search {
@@ -90,5 +107,16 @@
     font-size: 0.7rem;
     color: #2f3f48;
     border-radius: 0;
+  }
+
+  /* pagination */
+  .page-item a {
+    background-color: #fafafa;
+    color: #f26b83;
+  }
+
+  .page-item a:hover {
+    background-color: #e1f2bd;
+    color: #3b4e59;
   }
 </style>
