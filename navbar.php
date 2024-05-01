@@ -1,5 +1,4 @@
 <?
-// require_once __DIR__ . './includes/db_connect.php';
 include __DIR__ . './register.php';
 include __DIR__ . './login.php';
 ?>
@@ -10,40 +9,51 @@ include __DIR__ . './login.php';
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <!-- link -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
-                        <div class="circle"><i class="bi bi-house-fill"></i></div>
+                        <i class="bi bi-house-fill"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
-                        <div class="circle"><i class="bi bi-person-fill"></i></div>
-                    </a>
+                <?php if ($_SESSION['session_id']) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?= $URL ?>/dashboard.php">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                    </li>
+                <?php } ?>
+                <li class="nav-item d-flex align-items-center">
+                    <p>
+                        <i class="bi bi-bookmark-check-fill"></i> Welcome <?php if ($_SESSION['session_id']) {
+                                                                                echo "$_SESSION[session_user]";
+                                                                            } else {
+                                                                                echo "Guest";
+                                                                            } ?>
+                    </p>
                 </li>
             </ul>
 
             <!-- search form -->
-            <form class="d-flex" role="search" action="" method="GET">
-                <input class="form-control me-2 input-nav" type="search" placeholder="Find a book title" aria-label="Search" name="search">
-                <button class="btn btn-search" type="submit">Search</button>
+            <form class=" d-flex" role="search" action="" method="GET">
+                <input class="form-control  input-nav" type="search" placeholder="Find a book title" aria-label="Search" name="search">
+                <button class="btn btn-search ms-2" type="submit">Search</button>
             </form>
-
 
             <!-- button -->
             <?php if (!$_SESSION['session_id']) { ?>
-                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">SIGN IN</button>
+                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
             <?php } ?>
 
             <?php if (!$_SESSION['session_id']) { ?>
-                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">SIGN UP</button>
+                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
             <?php } ?>
 
             <?php if ($_SESSION['session_id']) { ?>
-                <a class="btn btn-search ms-2 sign" type="submit" href="./logout.php">LOG OUT</a>
+                <a class="btn btn-search ms-2 logout" type="submit" href="./logout.php">LOG OUT</a>
             <?php } ?>
         </div>
 

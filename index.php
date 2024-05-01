@@ -14,14 +14,13 @@ include_once __DIR__ . '/includes/html_start.php';
     <?php include __DIR__ . './includes/session_alert.php'; ?>
 
     <!-- books fetch from database -->
-    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 g-2 mt-3">
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-2 mt-3">
 
         <!-- card book -->
         <?php
         foreach ($booklist as $row) { ?>
             <div class="col">
                 <div class="card h-100">
-                    <!-- <img src="<?= $row['image'] ?>" class="card-img-top" alt="book cover"> -->
                     <img src="<?= $row['image'] ?? 'https://i.ibb.co/xmz9ycR/One-Page-Book-Cover-Image.jpg' ?>" class="card-img-top" alt="book cover">
                     <div class="card-body p-2">
                         <h5 class="card-title text-truncate"><?= $row['title'] ?></h5>

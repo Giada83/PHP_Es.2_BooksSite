@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        echo "Please, insert username and password";
+        printf("Please, insert username and password");
     } else {
         $query = 'SELECT username, password FROM users WHERE username = :username';
 
