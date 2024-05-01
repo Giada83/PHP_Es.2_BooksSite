@@ -8,7 +8,7 @@ if (isset($_SESSION['session_id'])) {
     $_SESSION['alert'] = "You are already logged in";
     header('Location: index.php');
     exit(0);
-}
+};
 
 // verify user authentication
 if (isset($_POST['login'])) {

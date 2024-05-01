@@ -48,21 +48,21 @@ if (isset($_POST['register'])) {
         if (count($users) > 0) {
             echo 'User already exist';
         } else {
-            // $query = 'INSERT INTO users VALUES (0, :username, :email, :password)';
+            $query = 'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)';
 
-            // $check = $conn->prepare($query);
-            // $check->bindParam(':username', $username, PDO::PARAM_STR);
-            // $check->bindParam(':email', $email, PDO::PARAM_STR);
-            // $check->bindParam(':password', $password_hash, PDO::PARAM_STR);
-            // $check->execute();
+            $check = $conn->prepare($query);
+            $check->bindParam(':username', $username, PDO::PARAM_STR);
+            $check->bindParam(':email', $email, PDO::PARAM_STR);
+            $check->bindParam(':password', $password_hash, PDO::PARAM_STR);
+            $check->execute();
 
-            $check = $conn->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password);');
+            // $check = $conn->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password);');
 
-            $check->execute([
-                'username' => $username,
-                'email' => $email,
-                'password' => $password_hash,
-            ]);
+            // $check->execute([
+            //     'username' => $username,
+            //     'email' => $email,
+            //     'password' => $password_hash,
+            // ]);
 
             if ($check->rowCount() > 0) {
                 $_SESSION['message'] = "Successful registration";
