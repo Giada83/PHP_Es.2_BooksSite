@@ -1,55 +1,32 @@
 <?php
+session_start();
 require_once __DIR__ . '/includes/db_connect.php';
-include_once __DIR__ . '/code.php';
+include_once __DIR__ . '/index_code.php';
 include_once __DIR__ . '/includes/html_start.php';
 ?>
 
 <!-- navbar -->
-<header>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="<?= $URL ?>">The Books World</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
-                            <div class="circle"><i class="bi bi-house-fill"></i></div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= $URL ?>">
-                            <div class="circle"><i class="bi bi-person-fill"></i></div>
-                        </a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search" action="" method="GET">
-                    <input class="form-control me-2" type="search" placeholder="Find a book title" aria-label="Search" name="search">
-                    <button class=" btn btn-search" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</header>
+<header><?php include_once __DIR__ . '/navbar.php'; ?></header>
 
 <div class="container">
+
+    <!-- registration/login advise -->
+    <?php include __DIR__ . './includes/session_alert.php'; ?>
 
     <!-- books fetch from database -->
     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 g-2 mt-3">
 
         <!-- card book -->
         <?php
-        // $stmt = $conn->query('SELECT * FROM books ORDER BY title');
         foreach ($booklist as $row) { ?>
             <div class="col">
                 <div class="card h-100">
-                    <img src="<?= $row['image'] ?>" class="card-img-top" alt="book cover">
+                    <!-- <img src="<?= $row['image'] ?>" class="card-img-top" alt="book cover"> -->
+                    <img src="<?= $row['image'] ?? 'https://i.ibb.co/xmz9ycR/One-Page-Book-Cover-Image.jpg' ?>" class="card-img-top" alt="book cover">
                     <div class="card-body p-2">
                         <h5 class="card-title text-truncate"><?= $row['title'] ?></h5>
                         <p class="card-text"><?= $row['author'] ?></p>
-                        <p class="card-text">$ <?= $row['price'] ?></p>
+                        <p class="card-text"> <?= $row['price'] ? '$' . $row['price'] : 'sold out' ?></p>
                         <p class="card-text">
                             <?php
                             if ($row['category'] === 'fantasy') {
