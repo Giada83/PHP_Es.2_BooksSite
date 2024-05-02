@@ -28,18 +28,19 @@ include __DIR__ . './login.php';
                 <?php } ?>
                 <li class="nav-item d-flex align-items-center">
                     <p>
-                        <i class="bi bi-bookmark-check-fill"></i> Welcome <?php if ($_SESSION['session_id']) {
-                                                                                echo "$_SESSION[session_user]";
-                                                                            } else {
-                                                                                echo "Guest";
-                                                                            } ?>
+                        <i class="bi bi-bookmark-check-fill"></i> Welcome
+                        <?php if ($_SESSION['session_id']) {
+                            echo "$_SESSION[session_user]";
+                        } else {
+                            echo "Guest";
+                        } ?>
                     </p>
                 </li>
             </ul>
 
             <!-- search form -->
             <form class=" d-flex" role="search" action="" method="GET">
-                <input class="form-control  input-nav" type="search" placeholder="Find a book title" aria-label="Search" name="search">
+                <input class="form-control input-nav" type="search" placeholder="Find a book title" aria-label="Search" name="search">
                 <button class="btn btn-search ms-2" type="submit">Search</button>
             </form>
 
@@ -50,6 +51,7 @@ include __DIR__ . './login.php';
 
             <?php if (!$_SESSION['session_id']) { ?>
                 <button class="btn ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+
             <?php } ?>
 
             <?php if ($_SESSION['session_id']) { ?>

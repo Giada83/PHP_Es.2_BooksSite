@@ -61,7 +61,7 @@ if (isset($_POST['update'])) {
             $query_execute = $statement->execute($data);
 
             if ($query_execute) {
-                $_SESSION['success'] = "Updated Successfully";
+                $_SESSION['warning'] = "Updated Successfully";
                 header('Location: dashboard.php');
                 exit();
             } else {
@@ -85,94 +85,95 @@ function test_input($data)
 }
 ?>
 
-<body class="body-dash">
-    <div class="container vh-100">
-        <div class="row d-flex justify-content-center align-items-center vh-100">
-            <div class="col col-md-6 col-lg-8 bg-light rounded">
+<!-- HTML ----------------------------------------------------------------------------------------------->
 
-                <div class="p-5 box">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h3>Dear <?= $row['username'] ?></h3>
+<body class="body-dash" <div class="container vh-100">
+    <div class="row d-flex justify-content-center align-items-center vh-100">
+        <div class="col col-md-6 col-lg-8 bg-light rounded">
 
-                            <?php include __DIR__ . './includes/session_alert.php'; ?>
+            <div class="p-5 box">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Dear <?= $row['username'] ?></h3>
 
-                        </div>
-                        <div class="d-flex">
-                            <a href="./index.php">
-                                <h3><i class="bi bi-house"></i></h3>
-                            </a>
-                            <a href="./dashboard.php">
-                                <h3><i class="bi bi-person-circle ms-2"></i></h3>
-                            </a>
-                        </div>
+                        <?php include __DIR__ . './includes/session_alert.php'; ?>
+
                     </div>
-
-                    <p>UPDATE PROFILE INFORMATION</p>
-
-                    <form action='' method="post" novalidate>
-                        <table class="table">
-                            <tbody class="table-text">
-                                <tr class="d-none">
-                                    <td>
-                                        <input name="id" value="<?= $row['id'] ?>" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-3">Username</td>
-                                    <td>
-                                        <input type="text" class="w-100 input is-invalid" id="validateUsername" aria-describedby="validateUsernameFeedback" value="<?= $row['username'] ?>" name="username" />
-                                        <div id="validateUsernameFeedback" class="invalid-feedback">
-                                            <?php echo $usernameErr; ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>
-                                        <input type="email" class="w-100 input is-invalid" id="validateEmail" aria-describedby="validateEmailFeedback" value="<?= $row['email'] ?>" name="email" />
-                                        <div id="validateEmailFeedback" class="invalid-feedback">
-                                            <?php echo $emailErr; ?>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr class="d-none">
-                                    <td>
-                                        <input name="password" value="<?= $row['password'] ?>" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>City</td>
-                                    <td>
-                                        <input type="text" class="w-100 input" value="<?= $row['city'] ?? '' ?>" name="city" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Gender</td>
-                                    <td>
-                                        <input type="text" class="w-100 input" value="<?= $row['gender'] ?? '' ?>" name="gender" />
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Address</td>
-                                    <td>
-                                        <input type="text" class="w-100" value="<?= $row['address'] ?? '' ?>" name="address" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- update information -->
-                        <a href="./update_profile.php?id=<?= $row['id'] ?>">
-                            <button class="btn btn-dash" type="submit" name="update">Submit </button>
+                    <div class="d-flex">
+                        <a href="./index.php">
+                            <h3><i class="bi bi-house"></i></h3>
                         </a>
-                    </form>
-
+                        <a href="./dashboard.php">
+                            <h3><i class="bi bi-person-circle ms-2"></i></h3>
+                        </a>
+                    </div>
                 </div>
+
+                <p>UPDATE PROFILE INFORMATION</p>
+
+                <form action='' method="post" novalidate>
+                    <table class="table">
+                        <tbody class="table-text">
+                            <tr class="d-none">
+                                <td>
+                                    <input name="id" value="<?= $row['id'] ?>" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-3">Username</td>
+                                <td>
+                                    <input type="text" class="w-100 input is-invalid" id="validateUsername" aria-describedby="validateUsernameFeedback" value="<?= $row['username'] ?>" name="username" />
+                                    <div id="validateUsernameFeedback" class="invalid-feedback">
+                                        <?php echo $usernameErr; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>
+                                    <input type="email" class="w-100 input is-invalid" id="validateEmail" aria-describedby="validateEmailFeedback" value="<?= $row['email'] ?>" name="email" />
+                                    <div id="validateEmailFeedback" class="invalid-feedback">
+                                        <?php echo $emailErr; ?>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="d-none">
+                                <td>
+                                    <input name="password" value="<?= $row['password'] ?>" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>
+                                    <input type="text" class="w-100 input" value="<?= $row['city'] ?? '' ?>" name="city" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td>
+                                    <input type="text" class="w-100 input" value="<?= $row['gender'] ?? '' ?>" name="gender" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Address</td>
+                                <td>
+                                    <input type="text" class="w-100" value="<?= $row['address'] ?? '' ?>" name="address" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- update information -->
+                    <a href="./update_profile.php?id=<?= $row['id'] ?>">
+                        <button class="btn btn-dash" type="submit" name="update">Submit </button>
+                    </a>
+                </form>
+
             </div>
         </div>
+    </div>
     </div>
 
 

@@ -23,7 +23,7 @@ if (isset($_POST['register'])) {
     $passLenght = mb_strlen($password);
 
     if (empty($username) || empty($email) || empty($password)) {
-        echo  'Please, fill in all fields';
+        echo 'Please, fill in all fields';
     } elseif (false == $isUsernameValid) {
         echo  'Invalid username. Only alphanumeric characters and underscores are allowed. The length must be between 3 and 20 characters';
     } elseif ($passLenght < 8 || $passLenght > 20) {
@@ -48,7 +48,6 @@ if (isset($_POST['register'])) {
             $_SESSION['danger'] = "<strong>OPS!</strong> User already exist";
             header('Location: index.php');
             exit(0);
-            // echo 'User already exist';
         } else {
             $query = 'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)';
 

@@ -1,8 +1,8 @@
-<!-- Modal-->
+<!-- REGISTRATION FORM INTO POP UP WINDOW -->
+
 <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <!-- header -->
             <div class="modal-header">
                 <h2 class="modal-title fs-5" id="signUpModalLabel">Sign Up</h2>
@@ -11,7 +11,6 @@
 
             <!-- form -->
             <div class="modal-body">
-
                 <form action="./register_code.php" method="POST">
                     <!-- username -->
                     <div class="mb-3">
@@ -36,7 +35,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
