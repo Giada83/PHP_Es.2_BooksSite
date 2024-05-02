@@ -1,4 +1,4 @@
-<!-- // REGISTER FORM -->
+<!-- REGISTER CODE -->
 <?php
 session_start();
 require_once __DIR__ . './includes/db_connect.php';
@@ -7,7 +7,6 @@ if (isset($_POST['register'])) {
     $username = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
-
 
     // username validation
     $isUsernameValid = filter_var(
@@ -46,14 +45,19 @@ if (isset($_POST['register'])) {
         $users = $check->fetchAll();
 
         if (count($users) > 0) {
-            echo 'User already exist';
+            $_SESSION['danger'] = "<strong>OPS!</strong> User already exist";
+            header('Location: index.php');
+            exit(0);
+            // echo 'User already exist';
         } else {
             $query = 'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)';
 
             $check = $conn->prepare($query);
+
             $check->bindParam(':username', $username, PDO::PARAM_STR);
             $check->bindParam(':email', $email, PDO::PARAM_STR);
             $check->bindParam(':password', $password_hash, PDO::PARAM_STR);
+
             $check->execute();
 
             // $check = $conn->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password);');
@@ -65,11 +69,11 @@ if (isset($_POST['register'])) {
             // ]);
 
             if ($check->rowCount() > 0) {
-                $_SESSION['message'] = "Successful registration";
+                $_SESSION['success'] = "<strong>Congratulations!</strong> Successful registration";
                 header('Location: index.php');
                 exit(0);
             } else {
-                $_SESSION['message'] = "OPS! Something wrong";
+                $_SESSION['danger'] = "<strong>OPS!</strong> Something wrong";
                 header('Location: index.php');
                 exit(0);
             }

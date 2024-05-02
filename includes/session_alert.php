@@ -1,37 +1,28 @@
 <!-- registration/login advise -->
 
-<!-- Registration ok -->
-<?php if (isset($_SESSION['message'])) { ?>
-    <div class="alert alert-success alert-dismissible fade show mt-3 mb-0" role="alert">
-        <strong>Congratulations!</strong> <?= $_SESSION['message']; ?>
+<!-- DANGER/red color -->
+<?php if (isset($_SESSION['danger'])) { ?>
+    <div class="alert alert-danger alert-dismissible fade show mt-3 mb-0" role="alert">
+        <?= $_SESSION['danger']; ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php unset($_SESSION['message']);
-}
+<?php unset($_SESSION['danger']);
+} ?>
 
-// Already logged in
-if (isset($_SESSION['alert'])) { ?>
+<!-- WARNING/yellow color -->
+<?php if (isset($_SESSION['warning'])) { ?>
     <div class="alert alert-warning alert-dismissible fade show mt-3 mb-0" role="alert">
-        <strong>OPS!</strong> <?= $_SESSION['alert']; ?>
+        <?= $_SESSION['warning']; ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php unset($_SESSION['alert']);
-}
+<?php unset($_SESSION['warning']);
+} ?>
 
-// logged in
-if (isset($_SESSION['user'])) { ?>
+<!-- SUCCESS/green color  -->
+<?php if (isset($_SESSION['success'])) { ?>
     <div class="alert alert-success alert-dismissible fade show mt-3 mb-0" role="alert">
-        <strong>Welcome</strong> <?= $_SESSION['user']; ?>
+        <?= $_SESSION['success']; ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php unset($_SESSION['user']);
-}
-
-// logged out
-if (isset($_SESSION['logout'])) { ?>
-    <div class="alert alert-warning alert-dismissible fade show mt-3 mb-0" role="alert">
-        <strong>Goodbye!</strong> <?= $_SESSION['logout']; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php unset($_SESSION['logout']);
+<?php unset($_SESSION['success']);
 } ?>

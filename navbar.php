@@ -45,15 +45,15 @@ include __DIR__ . './login.php';
 
             <!-- button -->
             <?php if (!$_SESSION['session_id']) { ?>
-                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
+                <button class="btn ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
             <?php } ?>
 
             <?php if (!$_SESSION['session_id']) { ?>
-                <button class="btn btn-search ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                <button class="btn ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
             <?php } ?>
 
             <?php if ($_SESSION['session_id']) { ?>
-                <a class="btn btn-search ms-2 logout" type="submit" href="./logout.php">LOG OUT</a>
+                <a class="btn btn-search ms-2 logout" type="submit" href="./logout.php">Log Out</a>
             <?php } ?>
         </div>
 

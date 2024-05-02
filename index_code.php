@@ -6,7 +6,7 @@ $page = $_GET['page'] ?? 1;
 $each_page = $_GET['each_page'] ?? 6;
 $offset = ($page - 1) * $each_page;
 
-$each_page = $each_page > 10 ? 6 : $each_page;
+$each_page = $each_page > 12 ? 6 : $each_page;
 
 $stmt = $conn->prepare("SELECT * FROM books  WHERE title LIKE :search ORDER BY title LIMIT :each_page OFFSET :offset ");
 $stmt->execute([

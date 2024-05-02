@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="signInModalLabel">Sign In</h1>
+                <h2 class="modal-title fs-5" id="signInModalLabel">Sign In</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -22,14 +22,13 @@
                         <input class="form-control" type="password" id="password" name="password">
                     </div>
                     <!-- button -->
-                    <button class="btn btn-primary" type="submit" name="login">Sign Up</button>
+                    <div class="mt-4">
+                        <button class="btn btn-form" type="submit" name="login">Sign In</button>
+                        <button type="button" class="btn btn-form ms-1" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </form>
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">underston</button>
-            </div>
         </div>
     </div>
 </div>
