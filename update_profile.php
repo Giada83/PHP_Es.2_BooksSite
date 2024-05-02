@@ -1,4 +1,5 @@
 <?php
+// ini_set('display_errors', 1);
 session_start();
 require_once __DIR__ . './includes/db_connect.php';
 include_once __DIR__ . '/includes/html_start.php';
@@ -14,46 +15,74 @@ $update->execute([$_GET["id"]]);
 
 $row = $update->fetch();
 
-if (isset($_POST['update'])) {
+$usernameErr = $emailErr = "";
 
+if (isset($_POST['update'])) {
     $user_id = $_POST['id'];
     $username = $_POST['username'] ?? "";
     $email = $_POST['email'] ?? "";
-    $password = $_POST['password'] ?? "";
     $city = $_POST['city'] ?? "";
     $gender = $_POST['gender'] ?? "";
     $address = $_POST['address'] ?? "";
 
-    try {
-        $query = "UPDATE users SET username=:username, email=:email, password=:password, city=:city, gender=:gender, address=:address
-        WHERE id=:user_id";
-        $statement = $conn->prepare($query);
-        $data = [
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $password,
-            ':city' => $city,
-            ':gender' => $gender,
-            ':address' => $address,
-            ':user_id' => $user_id
+    // validation username
+    if (empty($_POST["username"])) {
+        $usernameErr = "Username is required";
+    } else {
+        $username = test_input($_POST["username"]);
+    }
 
-        ];
-        $query_execute = $statement->execute($data);
-
-        if ($query_execute) {
-            $_SESSION['success'] = "Updated Successfully";
-            header('Location: dashboard.php');
-            exit();
-        } else {
-            $_SESSION['danger'] = "OPS! Something wrong";
-            header('Location: update_profile.php');
-            exit();
+    // validation email
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is required";
+    } else {
+        $email = test_input($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format";
         }
-    } catch (PDOException $e) {
-        echo "My Error Type:" . $e->getMessage();
+    }
+
+    // update
+    if (empty($usernameErr) && empty($emailErr)) {
+        try {
+            $query = "UPDATE users SET username=:username, email=:email, city=:city, gender=:gender, address=:address
+            WHERE id=:user_id";
+
+            $statement = $conn->prepare($query);
+            $data = [
+                ':username' => $username,
+                ':email' => $email,
+                ':city' => $city,
+                ':gender' => $gender,
+                ':address' => $address,
+                ':user_id' => $user_id
+            ];
+
+            $query_execute = $statement->execute($data);
+
+            if ($query_execute) {
+                $_SESSION['success'] = "Updated Successfully";
+                header('Location: dashboard.php');
+                exit();
+            } else {
+                $_SESSION['danger'] = "OPS! Something wrong";
+                header('Location: update_profile.php');
+                exit();
+            }
+        } catch (PDOException $e) {
+            echo "My Error Type:" . $e->getMessage();
+        }
     }
 }
 
+// The test_input() function is used to filter and clean the data sent by the form, to avoid possible script and HTML injection attacks.
+function test_input($data)
+{
+    $data = trim($data); //for empty whitespace
+    $data = stripslashes($data); //unquotes a quoted string
+    $data = htmlspecialchars($data); //convert special characters to HTML entries
+    return $data;
+}
 ?>
 
 <body class="body-dash">
@@ -92,13 +121,19 @@ if (isset($_POST['update'])) {
                                 <tr>
                                     <td class="col-3">Username</td>
                                     <td>
-                                        <input type="text" class="w-100 input" value="<?= $row['username'] ?>" name="username" />
+                                        <input type="text" class="w-100 input is-invalid" id="validateUsername" aria-describedby="validateUsernameFeedback" value="<?= $row['username'] ?>" name="username" />
+                                        <div id="validateUsernameFeedback" class="invalid-feedback">
+                                            <?php echo $usernameErr; ?>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
                                     <td>
-                                        <input type="email" class="w-100 input" value="<?= $row['email'] ?>" name="email" />
+                                        <input type="email" class="w-100 input is-invalid" id="validateEmail" aria-describedby="validateEmailFeedback" value="<?= $row['email'] ?>" name="email" />
+                                        <div id="validateEmailFeedback" class="invalid-feedback">
+                                            <?php echo $emailErr; ?>
+                                        </div>
                                     </td>
                                 </tr>
 
