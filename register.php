@@ -47,7 +47,7 @@ include __DIR__ . './includes/html_start.php';
                     <!-- button -->
                     <div class="mt-4">
                         <button class="btn btn-form" type="submit" name="register">Submit</button>
-                        <button type="button" class="btn btn-form ms-1" data-bs-dismiss="modal">Close</button>
+                        <a type="button" class="btn btn-form ms-1" href="./index.php">Close</a>
                     </div>
                 </form>
 

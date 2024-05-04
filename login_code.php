@@ -12,8 +12,8 @@ if (($_SESSION['session_id'])) {
 
 // verify user authentication
 if (isset($_POST['login'])) {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = htmlspecialchars(trim($_POST['username']));
+    $password = htmlspecialchars(trim($_POST['password']));
 
     if (empty($username) || empty($password)) {
         $_SESSION['danger'] = "Please, insert username and password";
@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
 
         // check if user exist and the password is correct
         if (!$user || password_verify($password, $user['password']) === false) {
-            // echo 'Incorrect user credentials';
+            // error on index page because server errors don't function with modal
             $_SESSION['danger'] = "Incorrect user credentials";
             header('Location: index.php');
             exit(0);

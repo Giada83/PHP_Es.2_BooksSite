@@ -2,12 +2,33 @@
 session_start();
 require_once __DIR__ . './includes/db_connect.php';
 
+// Define the test_input() function: used to filter and clean the data sent by the form, to avoid possible script and HTML injection attacks.
+function test_input($data)
+{
+    $data = trim($data); //for empty whitespace
+    $data = stripslashes($data); //unquotes a quoted string
+    $data = htmlspecialchars($data); //convert special characters to HTML entries
+    return $data;
+}
+
+// errors
 $errors = array();
 
+// POST 
 if (isset($_POST['register'])) {
     $username = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+
+    // Sanitize inputs using test_input() function
+    $username = test_input($_POST["username"]);
+    $email = test_input($_POST["email"]);
+    $password = test_input($_POST["password"]);
+
+    // Sanitize inputs using htmlspecialchars
+    // $username = htmlspecialchars(trim($username));
+    // $email = htmlspecialchars(trim($email));
+    // $password = htmlspecialchars(trim($password));
 
     // username validation
     $isUsernameValid = filter_var(
@@ -19,6 +40,12 @@ if (isset($_POST['register'])) {
             ]
         ]
     );
+
+    // email validation
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Please enter a valid email address';
+    }
+
 
     // password length
     $passLength = mb_strlen($password);
@@ -56,6 +83,8 @@ if (isset($_POST['register'])) {
             // If the user does not already exist, proceed with inserting it into the database
             $password_hash = password_hash($password, PASSWORD_BCRYPT);
             $query = 'INSERT INTO users (username, email, password) VALUES (:username, :email, :password)';
+
+            // SQL injection prevention: use prepared statements
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
