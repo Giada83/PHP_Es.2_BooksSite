@@ -76,7 +76,8 @@ include_once __DIR__ . '/includes/html_start.php';
         <?php if (count($booklist) !== 0) { ?>
             <ul class="pagination justify-content-center">
                 <li class="page-item <?= $page == 1 ? ' disabled' : '' ?>">
-                    <a class="page-link" href="<?= $URL ?>/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Previous">
+                    <!-- <a class="page-link" href="<?= $URL ?>/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Previous"> -->
+                    <a class="page-link" href="./?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -84,11 +85,11 @@ include_once __DIR__ . '/includes/html_start.php';
                 <?php
                 for ($i = 1; $i <= $tot_pages; $i++) { ?>
                     <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                        <a class="page-link" href="<?= $URL ?>/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"><?= $i ?></a>
+                        <a class="page-link" href="./?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"><?= $i ?></a>
                     </li><?php } ?>
 
                 <li class="page-item <?= $page == $tot_pages ? ' disabled' : '' ?>">
-                    <a class="page-link" href="<?= $URL ?>/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Next">
+                    <a class="page-link" href="./?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
