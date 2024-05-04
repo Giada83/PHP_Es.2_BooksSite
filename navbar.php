@@ -1,6 +1,5 @@
 <?
-include __DIR__ . './register.php';
-include __DIR__ . './login.php';
+include __DIR__ . './login.php'; //for login
 ?>
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -50,7 +49,7 @@ include __DIR__ . './login.php';
             <?php } ?>
 
             <?php if (!$_SESSION['session_id']) { ?>
-                <button class="btn ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                <a class="btn ms-2 sign" type="button" href="./register.php">Sign Up</a>
 
             <?php } ?>
 

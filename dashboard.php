@@ -75,7 +75,5 @@ $row = $dashboard->fetch();
         </div>
     </div>
 
-
-
     <!-- close body -->
     <?php include_once __DIR__ . '/includes/html_end.php'; ?>

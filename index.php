@@ -14,8 +14,7 @@ include_once __DIR__ . '/includes/html_start.php';
         <!-- registration/login advise -->
         <?php include __DIR__ . './includes/session_alert.php'; ?>
 
-
-        <!-- card book -->
+        <!-- book no found -->
         <?php
         if (count($booklist) == 0) { ?>
             <div class="no-found">
@@ -24,67 +23,78 @@ include_once __DIR__ . '/includes/html_start.php';
             </div>
         <?php } else { ?>
 
-            <!-- books fetch from database -->
+            <!-- card book -->
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-2 mt-3">
 
+                <!-- books fetch from database -->
                 <?php foreach ($booklist as $row) { ?>
                     <div class="col">
                         <div class="card h-100">
-                            <img src="<?= $row['image'] ?? 'https://i.ibb.co/xmz9ycR/One-Page-Book-Cover-Image.jpg' ?>" class="card-img-top" alt="book cover">
-                            <div class="card-body p-2">
-                                <h5 class="card-title text-truncate"><?= $row['title'] ?></h5>
-                                <p class="card-text"><?= $row['author'] ?></p>
-                                <p class="card-text"> <?= $row['price'] ? '$' . $row['price'] : 'sold out' ?></p>
-                                <p class="card-text">
-                                    <?php
-                                    if ($row['category'] === 'fantasy') {
-                                    ?>
-                                        <span style="background-color: #e1f2bd"><?= $row['category'] ?></span>
-                                    <?php
-                                    } elseif ($row['category'] === 'history') {
-                                    ?>
-                                        <span style="background-color: #D7D7D7"><?= $row['category'] ?></span>
-                                    <?php
-                                    } elseif ($row['category'] === 'scifi') {
-                                    ?>
-                                        <span style="background-color: #B3D6FF"><?= $row['category'] ?></span>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <span style="background-color: #F2BDBD"><?= $row['category'] ?></span>
-                                    <?php } ?>
-                                </p>
-                            </div>
+
+                            <!-- image link for book details -->
+                            <form action="/bookdetail.php" method="get">
+                                <a href="./bookdetail.php?id=<?= $row['id'] ?>" class="text-decoration-none">
+                                    <img src=" <?= $row['image'] ?? 'https://i.ibb.co/xmz9ycR/One-Page-Book-Cover-Image.jpg' ?>" class="card-img-top h" alt="book cover">
+
+                                    <!-- card body -->
+                                    <div class="card-body p-2">
+                                        <h5 class="card-title text-truncate"><?= $row['title'] ?></h5>
+                                </a>
+                            </form>
+
+                            <p class="card-text"><?= $row['author'] ?></p>
+                            <p class="card-text">
+                                <?php
+                                if ($row['category'] === 'fantasy') {
+                                ?>
+                                    <span style="background-color: #e1f2bd"><?= $row['category'] ?></span>
+                                <?php
+                                } elseif ($row['category'] === 'history') {
+                                ?>
+                                    <span style="background-color: #D7D7D7"><?= $row['category'] ?></span>
+                                <?php
+                                } elseif ($row['category'] === 'scifi') {
+                                ?>
+                                    <span style="background-color: #B3D6FF"><?= $row['category'] ?></span>
+                                <?php
+                                } else {
+                                ?>
+                                    <span style="background-color: #F2BDBD"><?= $row['category'] ?></span>
+                                <?php } ?>
+                            </p>
+                            <p class="card-text"> <?= $row['price'] ? '$' . $row['price'] : 'sold out' ?></p>
                         </div>
                     </div>
-            <?php }
+            </div>
+    <?php }
             } ?>
-            </div>
 
-            <!-- pagination -->
-            <div class="mt-4">
-                <?php if (count($booklist) !== 0) { ?>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item <?= $page == 1 ? ' disabled' : '' ?>">
-                            <a class="page-link" href="<?= $URL ?>/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
+    </div>
 
-                        <?php
-                        for ($i = 1; $i <= $tot_pages; $i++) { ?>
-                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                <a class="page-link" href="<?= $URL ?>/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"><?= $i ?></a>
-                            </li><?php } ?>
+    <!-- pagination -->
+    <div class="mt-4">
+        <?php if (count($booklist) !== 0) { ?>
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?= $page == 1 ? ' disabled' : '' ?>">
+                    <a class="page-link" href="<?= $URL ?>/?page=<?= $page - 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
 
-                        <li class="page-item <?= $page == $tot_pages ? ' disabled' : '' ?>">
-                            <a class="page-link" href="<?= $URL ?>/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                <?php } ?>
-            </div>
+                <?php
+                for ($i = 1; $i <= $tot_pages; $i++) { ?>
+                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                        <a class="page-link" href="<?= $URL ?>/?page=<?= $i ?><?= $search ? "&search=$search" : '' ?>"><?= $i ?></a>
+                    </li><?php } ?>
+
+                <li class="page-item <?= $page == $tot_pages ? ' disabled' : '' ?>">
+                    <a class="page-link" href="<?= $URL ?>/?page=<?= $page + 1 ?><?= $search ? "&search=$search" : '' ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        <?php } ?>
+    </div>
 
     </div>
 
