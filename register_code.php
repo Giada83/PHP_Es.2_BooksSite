@@ -48,7 +48,9 @@ if (isset($_POST['register'])) {
 
 
     // password length
-    $passLength = mb_strlen($password);
+    $passLength = mb_strlen($password); // for multibyte string. mbstring is a non-default extension. This means it is not enabled by default. You must explicitly enable the module with the configure option.
+
+    // $passLength = strlen($password);
 
     if (empty($username)) {
         $errors['username'] = 'Please enter a username';

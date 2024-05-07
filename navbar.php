@@ -20,7 +20,7 @@ include __DIR__ . './login.php'; //for login
                 </li>
                 <?php if ($_SESSION['session_id']) { ?>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= $URL ?>/dashboard.php">
+                        <a class="nav-link active" aria-current="page" href="./dashboard.php">
                             <i class="bi bi-person-circle"></i>
                         </a>
                     </li>

@@ -42,7 +42,7 @@ include_once __DIR__ . '/includes/html_start.php';
                                 </a>
                             </form>
 
-                            <p class="card-text"><?= $row['author'] ?></p>
+                            <p class="card-text text-truncate"><?= $row['author'] ?></p>
                             <p class="card-text">
                                 <?php
                                 if ($row['category'] === 'fantasy') {
