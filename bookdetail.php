@@ -55,14 +55,15 @@ $detail = $stmt->fetch();
                         <div class="col-md-1 d-flex justify-content-center"><a href="./index.php" type="button" class="btn-close"></a></div>
                     </div>
 
-                    <div class=" mt-3">
+                    <!-- on work -->
+                    <!-- <div class=" mt-3">
                         <hr>
-                        <h4>Review</h4>
+                        <h4>Review</h4> -->
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
