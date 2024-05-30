@@ -1,4 +1,4 @@
-<?
+<?php
 include __DIR__ . './login.php'; //for login
 ?>
 
@@ -14,11 +14,11 @@ include __DIR__ . './login.php'; //for login
             <!-- link -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./index.php">
+                    <a class="nav-link active" aria-current="page" href="index.php">
                         <i class="bi bi-house-fill"></i>
                     </a>
                 </li>
-                <?php if ($_SESSION['session_id']) { ?>
+                <?php if (isset($_SESSION['session_id']) && $_SESSION['session_id']) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="./dashboard.php">
                             <i class="bi bi-person-circle"></i>
@@ -28,8 +28,8 @@ include __DIR__ . './login.php'; //for login
                 <li class="nav-item d-flex align-items-center">
                     <p>
                         <i class="bi bi-bookmark-check-fill"></i> Welcome
-                        <?php if ($_SESSION['session_id']) {
-                            echo "$_SESSION[session_user]";
+                        <?php if (isset($_SESSION['session_id']) && $_SESSION['session_id']) {
+                            echo $_SESSION['session_user'];
                         } else {
                             echo "Guest";
                         } ?>
@@ -44,16 +44,16 @@ include __DIR__ . './login.php'; //for login
             </form>
 
             <!-- button -->
-            <?php if (!$_SESSION['session_id']) { ?>
+            <?php if (!isset($_SESSION['session_id']) || !$_SESSION['session_id']) { ?>
                 <button class="btn ms-2 sign" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
             <?php } ?>
 
-            <?php if (!$_SESSION['session_id']) { ?>
+            <?php if (!isset($_SESSION['session_id']) || !$_SESSION['session_id']) { ?>
                 <a class="btn ms-2 sign" type="button" href="./register.php">Sign Up</a>
 
             <?php } ?>
 
-            <?php if ($_SESSION['session_id']) { ?>
+            <?php if (isset($_SESSION['session_id']) && $_SESSION['session_id']) { ?>
                 <a class="btn btn-search ms-2 logout" type="submit" href="./logout.php">Log Out</a>
             <?php } ?>
         </div>
